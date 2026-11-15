@@ -15,9 +15,10 @@ jobs:
       run: |
         find . -name "gradlew" -exec chmod +x {} \;
         cd $(find . -name "gradlew" -printf '%h\n' | head -n 1)
-        # Создаем файл gradle.properties с указанием пути к Java
-        echo "org.gradle.java.home=$JAVA_HOME" >> gradle.properties
-        echo "org.gradle.jvmargs=-Xmx2048m" >> gradle.properties
+        # Принудительно перезаписываем файл с настройками
+        echo "org.gradle.jvmargs=-Xmx2048m" > gradle.properties
+        echo "android.useAndroidX=true" >> gradle.properties
+        echo "android.enableJetifier=true" >> gradle.properties
         ./gradlew assembleDebug
     - uses: actions/upload-artifact@v4
       with:
