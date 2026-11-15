@@ -9,13 +9,11 @@ jobs:
         git clone https://github.com/asLody/VirtualApp.git .
     - uses: actions/setup-java@v4
       with:
-        java-version: '17'
+        java-version: '11'
         distribution: 'temurin'
     - name: Find and Build
       run: |
-        # Ищем файл gradlew и даем ему права
         find . -name "gradlew" -exec chmod +x {} \;
-        # Заходим в папку, где он лежит, и запускаем сборку
         cd $(find . -name "gradlew" -printf '%h\n' | head -n 1)
         ./gradlew assembleDebug
     - uses: actions/upload-artifact@v4
